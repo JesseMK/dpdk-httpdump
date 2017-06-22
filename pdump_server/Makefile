@@ -7,21 +7,13 @@ RTE_TARGET ?= x86_64-native-linuxapp-gcc
 
 include $(RTE_SDK)/mk/rte.vars.mk
 
-APP = dpdk-httpdump
+APP = pdump_server
 
 # all source are stored in SRCS-y
-SRCS-y := httpdump.c core_write.c core_capture.c
+SRCS-y := pdump_server.c
 
-# SRCS-y += statistics_ncurses.c utils.c
+CFLAGS += $(WERROR_FLAGS)
 
-CFLAGS += -O3 -DHASH_FUNCTION=HASH_SFH
-LDLIBS += -lpcap
-
-CFLAGS += -g
-# CFLAGS += -DDEBUG
-# CFLAGS += $(WERROR_FLAGS)
-
-# LDLIBS += -lncurses
+EXTRA_CFLAGS += -O3 -g -Wfatal-errors
 
 include $(RTE_SDK)/mk/rte.app.mk
-# include $(RTE_SDK)/mk/rte.extapp.mk

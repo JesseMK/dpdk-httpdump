@@ -208,6 +208,9 @@ int main(int argc, char *argv[])
         case 'r':
             arguments.rotate_seconds = atoi(optarg);
             break;
+        case 'r':
+            usage("dpdk-httpdump");
+            return 0;
         }
     }
 

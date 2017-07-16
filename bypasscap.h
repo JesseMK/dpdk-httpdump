@@ -38,31 +38,19 @@ static inline void init_dpdk_eal(void)
 
     char prgo_name[] = "dpdk-httpdump";
     char l_flag[] = "-l0-3";
-    // char c_flag[] = "-c1";
+    char c_flag[] = "-c1";
     char n_flag[] = "-n6";
     char *argp[argv];
 
     argp[0] = prgo_name;
     argp[1] = l_flag;
-    // argp[2] = c_flag;
+    argp[2] = c_flag;
     argp[2] = n_flag;
 
     diag = rte_eal_init(argv, argp);
     if (diag < 0)
         rte_panic("Cannot init EAL\n");
 }
-
-// static void
-// print_capture_stats(void)
-// {
-//     printf("##### Packet Capture STATS #####\n");
-//     printf(" -packets dequeued:			%" PRIu64 "\n",
-//            stats.dequeue_pkts);
-//     // printf(" -packets transmitted to vdev:		%" PRIu64 "\n",
-//     //    stats.tx_pkts);
-//     printf(" -packets freed:			%" PRIu64 "\n",
-//            stats.freed_pkts);
-// }
 
 static int parse_matrix_opt(char *arg, unsigned long *matrix,
                             unsigned long max_len)
@@ -80,7 +68,8 @@ static int parse_matrix_opt(char *arg, unsigned long *matrix,
     unsigned long right_key;
     unsigned long value;
 
-    nb_comma_tokens = rte_strsplit(arg, strlen(arg), comma_tokens, 100, ',');
+    nb_comma_tokens = rte_strsplit(arg, strlen(arg),
+                                   comma_tokens, 100, ',');
     // Case with a single value
     if (nb_comma_tokens == 1 && strchr(arg, '.') == NULL)
     {
@@ -104,7 +93,8 @@ static int parse_matrix_opt(char *arg, unsigned long *matrix,
         {
             // Split between left and right side of the dot
             nb_dot_tokens = rte_strsplit(comma_tokens[comma],
-                                         strlen(comma_tokens[comma]), dot_tokens, 3, '.');
+                                         strlen(comma_tokens[comma]),
+                                         dot_tokens, 3, '.');
             if (nb_dot_tokens != 2)
                 return -EINVAL;
 
@@ -116,7 +106,8 @@ static int parse_matrix_opt(char *arg, unsigned long *matrix,
 
             // Handle key
             nb_dash_tokens = rte_strsplit(dot_tokens[0],
-                                          strlen(dot_tokens[0]), dash_tokens, 3, '-');
+                                          strlen(dot_tokens[0]),
+                                          dash_tokens, 3, '-');
             if (nb_dash_tokens == 1)
             {
                 // Single value

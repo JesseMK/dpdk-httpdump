@@ -36,10 +36,10 @@ static const struct rte_eth_conf port_conf_default = {
 
 void usage(char *progname)
 {
-    printf("Usage: %s [-c <per_port_c_cores>] [-w <num_w_cores>]  [-p <portmask>] [-r <rotate_seconds>]\n\
-            -c      Number of cores to capture packages on each port\n\
-            -w      Number of cores to analysis traffic\n\
-            -p      An hexadecimal bit mask of the port to listen on\n\
+    printf("Usage: %s [-c <per_port_c_cores>] [-w <num_w_cores>]  [-p <portmask>] [-r <rotate_seconds>]
+            -c      Number of cores to capture packages on each port
+            -w      Number of cores to analysis traffic
+            -p      An hexadecimal bit mask of the port to listen on
             -r      Every X seconds to generate new files for writing\n",
            progname);
 }

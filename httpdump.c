@@ -161,9 +161,6 @@ static void signal_handler(int sig)
 
 int main(int argc, char *argv[])
 {
-    // catch ctrl-c so we can uninit on exit
-    signal(SIGINT, signal_handler);
-
     struct core_capture_config *cores_config_capture_list;
     struct core_write_config *cores_config_write_list;
     unsigned int lcoreid_list[MAX_LCORES];
@@ -177,11 +174,11 @@ int main(int argc, char *argv[])
     char ring_name[SIZE];
     char mempool_name[SIZE];
 
-    /* Initialize the Environment Abstraction Layer (EAL). */
-    init_dpdk_eal();
-
     /* Parse arguments */
     arguments = (struct arguments){
+        .l_flag = "-l0-3";
+        .c_flag = "-c1";
+        .n_flag = "-n6";
         .nb_mbufs = NUM_MBUFS_DEFAULT,
         .num_rx_desc_str_matrix = NULL,
         .per_port_c_cores = 3,
@@ -213,6 +210,12 @@ int main(int argc, char *argv[])
             return 0;
         }
     }
+
+    // catch ctrl-c so we can uninit on exit
+    signal(SIGINT, signal_handler);
+
+    /* Initialize the Environment Abstraction Layer (EAL). */
+    init_dpdk_eal();
 
     /* Check if at least one port is available */
     if (rte_eth_dev_count() == 0)

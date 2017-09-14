@@ -31,16 +31,16 @@ struct capture_stats
     uint64_t freed_pkts;
 } stats;
 
-static inline void init_dpdk_eal(void)
+static inline void init_dpdk_eal(char prgo_name[], int argv, char **argp)
 {
     int diag;
-    int argv = 3;
+    // int argv = 3;
 
-    char prgo_name[] = "dpdk-httpdump";
-    char l_flag[] = "-l0-3";
-    char c_flag[] = "-c1";
-    char n_flag[] = "-n6";
-    char *argp[argv];
+    // char prgo_name[] = "dpdk-httpdump";
+    // char l_flag[] = "-l0-3";
+    // char c_flag[] = "-c1";
+    // char n_flag[] = "-n6";
+    // char *argp[argv];
 
     argp[0] = prgo_name;
     argp[1] = l_flag;

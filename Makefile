@@ -10,7 +10,7 @@ include $(RTE_SDK)/mk/rte.vars.mk
 APP = dpdk-httpdump
 
 # all source are stored in SRCS-y
-SRCS-y := httpdump.c core_write.c core_capture.c
+SRCS-y := httpdump.c core_write.c core_capture.c hd_config.c hd_init.c
 
 # SRCS-y += statistics_ncurses.c utils.c
 

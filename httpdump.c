@@ -1,8 +1,7 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <getopt.h>
-#include <signal.h>
-#include <inttypes.h>
+
+#include <rte_eal.h>
+#include <rte_common.h>
+#include <rte_ethdev.h>
 
 #include "hd_config.h"
 #include "core_write.h"

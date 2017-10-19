@@ -22,4 +22,7 @@
 extern int dpdk_argc;
 extern char **dpdk_argv;
 
+static int parse_matrix_opt(char *arg, unsigned long *matrix,
+                            unsigned long max_len);
+
 #endif /* ifndef __DPDK_HTTPDUMP_CONFIG_H */

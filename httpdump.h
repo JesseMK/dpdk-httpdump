@@ -1,6 +1,17 @@
 #ifndef _DPDK_HTTPDUMP_
 #define _DPDK_HTTPDUMP_
 
+struct arguments
+{
+    uint64_t portmask;
+    unsigned long nb_mbufs;
+    char *num_rx_desc_str_matrix;
+    unsigned long per_port_c_cores;
+    unsigned long num_w_cores;
+    unsigned long snaplen;
+    unsigned long rotate_seconds;
+};
+
 struct capture_stats
 {
     uint64_t dequeue_pkts;

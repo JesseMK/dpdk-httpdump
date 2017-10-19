@@ -7,17 +7,6 @@
 #include "core_write.h"
 #include "core_capture.h"
 
-struct arguments
-{
-    uint64_t portmask;
-    unsigned long nb_mbufs;
-    char *num_rx_desc_str_matrix;
-    unsigned long per_port_c_cores;
-    unsigned long num_w_cores;
-    unsigned long snaplen;
-    unsigned long rotate_seconds;
-};
-
 struct arguments arguments;
 
 static unsigned int portlist[64];

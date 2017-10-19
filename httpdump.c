@@ -1,8 +1,8 @@
 /*
  * @Author: JesseMK
  * @Date: 2017-10-19 20:42:36
- * @Last Modified by:   JesseMK
- * @Last Modified time: 2017-10-19 20:42:36
+ * @Last Modified by: JesseMK
+ * @Last Modified time: 2017-10-19 20:44:25
  */
 
 #include <signal.h>
@@ -13,6 +13,8 @@
 
 #include "httpdump.h"
 #include "hd_config.h"
+#include "hd_init.h"
+
 #include "core_write.h"
 #include "core_capture.h"
 

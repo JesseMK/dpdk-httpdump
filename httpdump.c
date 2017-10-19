@@ -4,7 +4,7 @@
 #include <signal.h>
 #include <inttypes.h>
 
-#include "bypasscap.h"
+#include "hd_config.h"
 #include "core_write.h"
 #include "core_capture.h"
 

@@ -1,11 +1,19 @@
 #ifndef _DPDK_HTTPDUMP_
 #define _DPDK_HTTPDUMP_
 
+struct capture_stats
+{
+    uint64_t dequeue_pkts;
+    uint64_t tx_pkts;
+    uint64_t freed_pkts;
+} stats;
+
 /* ARGP */
 const char *argp_program_version = "DPDK-HTTPDUMP 1.0";
 const char *argp_program_bug_address = "m.k.jessie@sjtu.edu.cn";
 static char doc[] = "A DPDK-based http packet analysis tool";
 static char args_doc[] = "";
+
 static struct argp_option options[] = {
     {"output", 'o', "FILE", 0,
      "Output FILE template (don't add the "
@@ -68,5 +76,26 @@ static struct argp_option options[] = {
      0},
     {"no-compression", 701, 0, 0, "Do not compress capture files.", 0},
     {0}};
+
+static inline void init_dpdk_eal(char prgo_name[], int argv, char **argp)
+{
+    int diag;
+    // int argv = 3;
+
+    // char prgo_name[] = "dpdk-httpdump";
+    // char l_flag[] = "-l0-3";
+    // char c_flag[] = "-c1";
+    // char n_flag[] = "-n6";
+    // char *argp[argv];
+
+    argp[0] = prgo_name;
+    argp[1] = l_flag;
+    argp[2] = c_flag;
+    argp[2] = n_flag;
+
+    diag = rte_eal_init(argv, argp);
+    if (diag < 0)
+        rte_panic("Cannot init EAL\n");
+}
 
 #endif //_HTTPDUMP_

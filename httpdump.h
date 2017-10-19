@@ -1,6 +1,8 @@
 #ifndef _DPDK_HTTPDUMP_
 #define _DPDK_HTTPDUMP_
 
+#include <argp.h>
+
 struct arguments
 {
     uint64_t portmask;
@@ -87,26 +89,5 @@ static struct argp_option options[] = {
      0},
     {"no-compression", 701, 0, 0, "Do not compress capture files.", 0},
     {0}};
-
-static inline void init_dpdk_eal(char prgo_name[], int argv, char **argp)
-{
-    int diag;
-    // int argv = 3;
-
-    // char prgo_name[] = "dpdk-httpdump";
-    // char l_flag[] = "-l0-3";
-    // char c_flag[] = "-c1";
-    // char n_flag[] = "-n6";
-    // char *argp[argv];
-
-    argp[0] = prgo_name;
-    argp[1] = l_flag;
-    argp[2] = c_flag;
-    argp[2] = n_flag;
-
-    diag = rte_eal_init(argv, argp);
-    if (diag < 0)
-        rte_panic("Cannot init EAL\n");
-}
 
 #endif //_HTTPDUMP_

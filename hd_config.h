@@ -2,11 +2,11 @@
  * @Author: JesseMK
  * @Date: 2017-10-19 16:28:14
  * @Last Modified by: JesseMK
- * @Last Modified time: 2017-10-19 16:39:03
+ * @Last Modified time: 2017-10-19 20:00:18
  */
 
-#ifndef _HD_CONFIG_
-#define _HD_CONFIG_
+#ifndef _DPDK_HTTPDUMP_CONFIG_
+#define _DPDK_HTTPDUMP_CONFIG_
 
 #define DPDK_MAX_LCORE 128
 
@@ -25,4 +25,4 @@ extern char **dpdk_argv;
 static int parse_matrix_opt(char *arg, unsigned long *matrix,
                             unsigned long max_len);
 
-#endif /* ifndef __DPDK_HTTPDUMP_CONFIG_H */
+#endif /* ifndef _DPDK_HTTPDUMP_CONFIG_ */

@@ -165,9 +165,9 @@ int main(int argc, char *argv[])
 
     /* Parse arguments */
     arguments = (struct arguments){
-        .l_flag = "-l0-3";
-        .c_flag = "-c1";
-        .n_flag = "-n6";
+        .l_flag = "-l0-3",
+        .c_flag = "-c1",
+        .n_flag = "-n6",
         .nb_mbufs = NUM_MBUFS_DEFAULT,
         .num_rx_desc_str_matrix = NULL,
         .per_port_c_cores = 3,

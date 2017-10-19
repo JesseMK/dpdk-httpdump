@@ -20,6 +20,6 @@
 #define MP_NAME "httpdump_pool_%d"
 
 extern int dpdk_argc;
-extern char *dpdk_argv[DPDK_CONFIG_NUM + 1];
+extern char **dpdk_argv;
 
 #endif /* ifndef __DPDK_HTTPDUMP_CONFIG_H */

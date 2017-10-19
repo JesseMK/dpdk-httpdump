@@ -2,10 +2,10 @@
  * @Author: JesseMK
  * @Date: 2017-10-19 19:57:53
  * @Last Modified by: JesseMK
- * @Last Modified time: 2017-10-19 20:25:10
+ * @Last Modified time: 2017-10-19 20:46:22
  */
 
-static inline void init_dpdk_eal()
+void init_dpdk_eal()
 {
     int diag;
     int argv = 3;

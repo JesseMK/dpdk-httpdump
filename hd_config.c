@@ -2,7 +2,7 @@
  * @Author: JesseMK
  * @Date: 2017-10-19 16:35:59
  * @Last Modified by: JesseMK
- * @Last Modified time: 2017-10-19 20:53:06
+ * @Last Modified time: 2017-10-19 20:54:38
  */
 
 #include <stdio.h>
@@ -13,11 +13,12 @@
 #include <stdbool.h>
 #include <net/if.h>
 #include <time.h>
+#include <errno.h>
 
 // #include <rte_eal.h>
 // #include <rte_common.h>
 // #include <rte_ethdev.h>
-#include <rte_errno.h>
+// #include <rte_errno.h>
 #include <rte_string_fns.h>
 
 static int parse_matrix_opt(char *arg, unsigned long *matrix,

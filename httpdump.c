@@ -3,6 +3,7 @@
 #include <rte_common.h>
 #include <rte_ethdev.h>
 
+#include "httpdump.h"
 #include "hd_config.h"
 #include "core_write.h"
 #include "core_capture.h"

@@ -2,11 +2,13 @@
  * @Author: JesseMK
  * @Date: 2017-10-19 19:57:53
  * @Last Modified by: JesseMK
- * @Last Modified time: 2017-10-19 20:58:16
+ * @Last Modified time: 2017-10-19 21:00:35
  */
 
 #include <rte_eal.h>
 #include <rte_common.h>
+#include <rte_ethdev.h>
+#include <rte_string_fns.h>
 
 void init_dpdk_eal()
 {

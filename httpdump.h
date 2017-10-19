@@ -5,6 +5,9 @@
 
 struct arguments
 {
+    char *l_flag;
+    char *c_flag;
+    char *n_flag;
     uint64_t portmask;
     unsigned long nb_mbufs;
     char *num_rx_desc_str_matrix;

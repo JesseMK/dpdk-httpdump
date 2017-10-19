@@ -2,7 +2,7 @@
  * @Author: JesseMK
  * @Date: 2017-10-19 16:28:14
  * @Last Modified by: JesseMK
- * @Last Modified time: 2017-10-19 20:45:29
+ * @Last Modified time: 2017-10-19 21:02:28
  */
 
 #ifndef _DPDK_HTTPDUMP_CONFIG_
@@ -22,7 +22,7 @@
 extern int dpdk_argc;
 extern char **dpdk_argv;
 
-static int parse_matrix_opt(char *arg, unsigned long *matrix,
+int parse_matrix_opt(char *arg, unsigned long *matrix,
                             unsigned long max_len);
 
 #endif /* ifndef _DPDK_HTTPDUMP_CONFIG_ */

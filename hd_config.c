@@ -2,7 +2,7 @@
  * @Author: JesseMK
  * @Date: 2017-10-19 16:35:59
  * @Last Modified by: JesseMK
- * @Last Modified time: 2017-10-19 20:54:38
+ * @Last Modified time: 2017-10-19 21:02:19
  */
 
 #include <stdio.h>
@@ -21,7 +21,7 @@
 // #include <rte_errno.h>
 #include <rte_string_fns.h>
 
-static int parse_matrix_opt(char *arg, unsigned long *matrix,
+int parse_matrix_opt(char *arg, unsigned long *matrix,
                             unsigned long max_len)
 {
     char *comma_tokens[100];

@@ -53,7 +53,7 @@ dkms.conf
 /.vscode
 
 # Build Files
- _install
+_install
 _postbuild
 _postinstall
 _preinstall

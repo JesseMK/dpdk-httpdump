@@ -30,15 +30,15 @@ static char args_doc[] = "";
 static struct argp_option options[] = {
     {"output", 'o', "FILE", 0,
      "Output FILE template (don't add the "
-     "extension). Use \"" DPDKCAP_OUTPUT_TEMPLATE_TOKEN_CORE_ID "\" for "
+     "extension). Use \"", DPDKCAP_OUTPUT_TEMPLATE_TOKEN_CORE_ID, "\" for "
      "inserting the lcore id into the file name (automatically added if not "
-     "used). (default: " DPDKCAP_OUTPUT_TEMPLATE_DEFAULT ")",
+     "used). (default: ", DPDKCAP_OUTPUT_TEMPLATE_DEFAULT, ")",
      0},
     {"statistics", 'S', 0, 0, "Print statistics every few seconds.", 0},
     {"num-mbuf", 'm', "NB_MBUF", 0,
      "Total number of memory buffer used to "
      "store the packets. Optimal values, in terms of memory usage, are powers "
-     "of 2 minus 1 (2^q-1) (default: " STR(NUM_MBUFS_DEFAULT) ")",
+     "of 2 minus 1 (2^q-1) (default: ", STR(NUM_MBUFS_DEFAULT), ")",
      0},
     {"per_port_c_cores", 'c', "NB_CORES_PER_PORT", 0,
      "Number of cores per "
@@ -51,7 +51,7 @@ static struct argp_option options[] = {
     {"rx_desc", 'd', "RX_DESC_MATRIX", 0,
      "This option can be used to "
      "override the default number of RX descriptors configured for all queues "
-     "of each port (" STR(RX_DESC_DEFAULT) "). RX_DESC_MATRIX can have "
+     "of each port (", STR(RX_DESC_DEFAULT), "). RX_DESC_MATRIX can have "
                                            "multiple formats:\n"
                                            "- A single positive value, which will simply replace the default "
                                            " number of RX descriptors,\n"
@@ -77,7 +77,7 @@ static struct argp_option options[] = {
     {"limit_file_size", 'C', "SIZE", 0,
      "Before writing a packet, check "
      "whether the target file excess SIZE bytes. If so, creates a new file. "
-     "Use \"" DPDKCAP_OUTPUT_TEMPLATE_TOKEN_FILECOUNT "\" within the output "
+     "Use \"", DPDKCAP_OUTPUT_TEMPLATE_TOKEN_FILECOUNT, "\" within the output "
      "file template to index each new file.",
      0},
     {"portmask", 'p', "PORTMASK", 0, "Ethernet ports mask (default: 0x1).", 0},

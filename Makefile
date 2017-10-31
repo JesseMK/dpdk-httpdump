@@ -15,7 +15,7 @@ SRCS-y := httpdump.c core_write.c core_capture.c hd_config.c hd_init.c
 # SRCS-y += statistics_ncurses.c utils.c
 
 CFLAGS += -O3 -DHASH_FUNCTION=HASH_SFH
-# LDLIBS += -lpcap
+LDLIBS += -lpcap
 
 # CFLAGS += -g
 # CFLAGS += -DDEBUG

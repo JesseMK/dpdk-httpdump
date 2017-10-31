@@ -23,5 +23,5 @@ LDLIBS += -lpcap
 
 # LDLIBS += -lncurses
 
-include $(RTE_SDK)/mk/rte.app.mk
-# include $(RTE_SDK)/mk/rte.extapp.mk
+# include $(RTE_SDK)/mk/rte.app.mk
+include $(RTE_SDK)/mk/rte.extapp.mk

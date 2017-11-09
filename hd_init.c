@@ -15,7 +15,7 @@ void init_dpdk_eal()
     int argv = 3;
 
     char prgo_name[] = "dpdk-httpdump";
-    char l_flag[] = "-l0-6";
+    char l_flag[] = "-l1-7";
     // char c_flag[] = "-c1";
     char n_flag[] = "-n6";
     char *argp[argv];

@@ -25,7 +25,7 @@ struct capture_stats
 } stats;
 
 /* ARGP */
-const char *argp_program_version = "DPDK-HTTPDUMP 1.0";
+const char *argp_program_version = "DPDK-HTTPDUMP 0.2";
 const char *argp_program_bug_address = "m.k.jessie@sjtu.edu.cn";
 static char doc[] = "A DPDK-based http packet analysis tool";
 static char args_doc[] = "";

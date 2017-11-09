@@ -18,7 +18,7 @@
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 
-#define RTE_LOGTYPE_DPDKCAP RTE_LOGTYPE_USER1
+#define RTE_LOGTYPE_HTTPDUMP RTE_LOGTYPE_USER1
 
 static void
 init_time(void)
@@ -100,7 +100,7 @@ int write_core(const struct core_write_config *config)
 {
     int to_write;
     int retval = 0;
-    struct rte_mbuf *dequeued[DPDKCAP_WRITE_BURST_SIZE];
+    struct rte_mbuf *dequeued[HTTPDUMP_WRITE_BURST_SIZE];
     struct rte_mbuf *mbuf;
     struct pcap_pkthdr header;
 
@@ -131,10 +131,10 @@ int write_core(const struct core_write_config *config)
 
         //Get packets from the ring
         to_write = rte_ring_dequeue_bulk(config->ring, (void *)dequeued,
-                                         DPDKCAP_WRITE_BURST_SIZE, NULL);
+                                         HTTPDUMP_WRITE_BURST_SIZE, NULL);
         if (unlikely(to_write == 0))
             to_write = rte_ring_dequeue_burst(config->ring, (void *)dequeued,
-                                              DPDKCAP_WRITE_BURST_SIZE, NULL);
+                                              HTTPDUMP_WRITE_BURST_SIZE, NULL);
 
         //Update stats
         config->stats->packets += to_write;

@@ -5,8 +5,6 @@
 #include <time.h>
 #include <arpa/inet.h>
 
-#include "hd_pkt.h"
-
 inline void __print_ts(FILE *output, struct timeval ts)
 {
     struct tm *ts_tm = localtime(&(ts.tv_sec));

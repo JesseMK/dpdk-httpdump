@@ -14,6 +14,7 @@
 
 #include "core_write.h"
 #include "hd_pcap.h"
+#include "hd_pkt.h"
 
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 

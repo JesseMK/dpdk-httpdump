@@ -12,6 +12,7 @@
 
 #include "hd_pkt.h"
 #include "hd_http.h"
+#include "hd_file.h"
 // #include "uthash.h"
 
 record_t *hashtable[MAX_CORE_NUM] = {};

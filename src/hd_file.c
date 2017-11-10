@@ -4,7 +4,7 @@
 
 #include "hd_file.h"
 
-uint32_t rotate_interval = 0;
+uint32_t rotate_interval = 600;
 uint32_t rotate_last[MAX_CORE_NUM] = {0};
 FILE *fp[MAX_CORE_NUM] = {};
 

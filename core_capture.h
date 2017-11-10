@@ -6,7 +6,7 @@
 #define RX_DESC_DEFAULT 512
 #define NUM_MBUFS_DEFAULT 8192
 #define PCAP_SNAPLEN_DEFAULT 65535
-#define DPDKCAP_CAPTURE_BURST_SIZE 128
+#define HTTPDUMP_CAPTURE_BURST_SIZE 128
 
 /* Core configuration structures */
 struct core_capture_config {

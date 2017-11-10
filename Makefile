@@ -13,7 +13,7 @@ APP = dpdk-httpdump
 SRCS-y := httpdump.c
 
 SRCS-y += core_write.c core_capture.c
-SRCS-y += hd_config.c hd_init.c hd_pkt.c hd_http.c hd_pcap.c hd_file.c
+SRCS-y += hd_config.c hd_init.c hd_pkt.c hd_http.c hd_pcap.c hd_file.c hd_print.c
 
 # SRCS-y += statistics_ncurses.c utils.c
 

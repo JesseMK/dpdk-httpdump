@@ -11,12 +11,12 @@
 #include <rte_common.h>
 #include <rte_ethdev.h>
 
-#include "httpdump.h"
-#include "hd_config.h"
-#include "hd_init.h"
+#include "src/httpdump.h"
+#include "src/hd_config.h"
+#include "src/hd_init.h"
 
-#include "core_write.h"
-#include "core_capture.h"
+#include "src/core_write.h"
+#include "src/core_capture.h"
 
 struct arguments arguments;
 

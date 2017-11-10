@@ -6,9 +6,9 @@
 
 #include "hd_file.h"
 
-rotate_interval = 0;
-rotate_last[MAX_CORE_NUM] = {0};
-*fp[MAX_CORE_NUM] = {};
+uint32_t rotate_interval = 0;
+uint32_t rotate_last[MAX_CORE_NUM] = {0};
+FILE *fp[MAX_CORE_NUM] = {};
 
 inline FILE *httpdump_file(int lcore_id)
 {

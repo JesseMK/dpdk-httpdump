@@ -34,9 +34,9 @@ typedef struct
     UT_hash_handle hh;
 } record_t;
 
-record_t *hashtable[MAX_CORE_NUM];
-record_t *hashtable_old[MAX_CORE_NUM];
-uint64_t cache_time[MAX_CORE_NUM];
+extern record_t *hashtable[MAX_CORE_NUM];
+extern record_t *hashtable_old[MAX_CORE_NUM];
+extern uint64_t cache_time[MAX_CORE_NUM];
 
 void init_hashtable(int lcore_id);
 void httpdump_pkt(unsigned char *data, uint32_t seq, uint16_t len, struct timeval ts, host_t *src, host_t *dst);

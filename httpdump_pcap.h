@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include <pcap.h>
 
-#include "httpdump_pkt.h"
+#include "hd_pkt.h"
 
 void httpdump_pcap(const struct pcap_pkthdr *pkthdr, const unsigned char *bytes)
 {

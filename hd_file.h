@@ -11,6 +11,6 @@ extern uint32_t rotate_interval;
 extern uint32_t rotate_last[MAX_CORE_NUM];
 extern FILE *fp[MAX_CORE_NUM];
 
-inline FILE *httpdump_file(int lcore_id);
+FILE *httpdump_file(int lcore_id);
 
 #endif //_DPDK_HTTPDUMP_FILE_

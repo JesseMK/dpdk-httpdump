@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#include "uthash.h"
+
 #define MAX_CORE_NUM 32
 #define REASM_MAX_LENGTH 65536
 #define CACHE_FLUSH_TIME 16

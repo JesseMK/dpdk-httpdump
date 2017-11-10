@@ -14,9 +14,9 @@
 #include "hd_http.h"
 // #include "uthash.h"
 
-record_t *hashtable[MAX_CORE_NUM] = {};
-record_t *hashtable_old[MAX_CORE_NUM] = {};
-uint64_t cache_time[MAX_CORE_NUM] = {0};
+*hashtable[MAX_CORE_NUM] = {};
+*hashtable_old[MAX_CORE_NUM] = {};
+cache_time[MAX_CORE_NUM] = {0};
 
 inline FILE *httpdump_file(int lcore_id)
 {

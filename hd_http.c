@@ -1,6 +1,3 @@
-#ifndef _HTTPDUMP_HTTP_
-#define _HTTPDUMP_HTTP_
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -8,14 +5,10 @@
 #include <time.h>
 #include <arpa/inet.h>
 
-#include "httpdump_file.h"
+#include "hd_http.h"
+#include "hd_file.h"
 
 #include <rte_lcore.h>
-
-#define HTTP_HEADER_MINLEN 12
-#define HTTP_FIELD_MINLEN 5
-#define HTTP_REQUEST_LINE_MINLEN 14
-#define HTTP_STATUS_LINE_MINLEN 12
 
 inline void __print_ts(FILE *output, struct timeval ts)
 {
@@ -253,5 +246,3 @@ void httpdump_http(unsigned char *data, uint32_t len, struct timeval ts, host_t 
     fprintf(output, "|%u|%s\n", dst->port,
             useragent == NULL ? "" : useragent);
 }
-
-#endif //_HTTPDUMP_HTTP_

@@ -11,8 +11,9 @@ APP = dpdk-httpdump
 
 # all source are stored in SRCS-y
 SRCS-y := httpdump.c
-SRCS-y += src/*.c
-SRCS-y += src/protocols/*.c
+SRCS-y += src/core_write.c src/core_capture.c
+SRCS-y += src/hd_config.c src/hd_init.c src/hd_pkt.c src/hd_pcap.c src/hd_file.c src/hd_print.c
+SRCS-y += src/protocols/hd_http.c
 
 # SRCS-y += core_write.c core_capture.c
 # SRCS-y += hd_config.c hd_init.c hd_pkt.c hd_http.c hd_pcap.c hd_file.c hd_print.c

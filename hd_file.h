@@ -1,6 +1,7 @@
 #ifndef _DPDK_HTTPDUMP_FILE_
 #define _DPDK_HTTPDUMP_FILE_
 
+#include <stdio.h>
 #include <stdint.h>
 
 #define MAX_CORE_NUM 64

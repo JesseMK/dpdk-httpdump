@@ -28,3 +28,8 @@ CPU max MHz:           2400.0000
 CPU min MHz:           1200.0000
 NUMA node0 CPU(s):     0-3
 NUMA node1 CPU(s):     4-7
+
+# Data
+11:40 1G/10min
+12:00 3G/30min
+12:55 5.9G/1.5h

@@ -252,7 +252,7 @@ int main(int argc, char *argv[])
     required_cores = (1 + nb_ports * arguments.per_port_c_cores + arguments.num_w_cores);
     if (rte_lcore_count() < required_cores)
     {
-        rte_exit(EXIT_FAILURE, "Assign at least %d cores to dpdkcap.\n",
+        rte_exit(EXIT_FAILURE, "Assign at least %d cores to dpdk-httpdump.\n",
                  required_cores);
     }
     printf("Using %u cores out of %d allocated\n",

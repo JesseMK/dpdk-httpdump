@@ -6,8 +6,8 @@
 #include <arpa/inet.h>
 
 #include "hd_http.h"
-#include "hd_file.h"
-#include "hd_print.h"
+#include "../hd_file.h"
+#include "../hd_print.h"
 
 #include <rte_lcore.h>
 

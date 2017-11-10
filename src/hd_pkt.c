@@ -11,7 +11,7 @@
 #include <rte_lcore.h>
 
 #include "hd_pkt.h"
-#include "hd_http.h"
+#include "protocols/hd_http.h"
 // #include "uthash.h"
 
 record_t *hashtable[MAX_CORE_NUM] = {};

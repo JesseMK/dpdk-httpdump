@@ -1,7 +1,7 @@
 #ifndef _HTTPDUMP_HTTP_
 #define _HTTPDUMP_HTTP_
 
-#include "hd_pkt.h"
+#include "../hd_pkt.h"
 
 #define HTTP_HEADER_MINLEN 12
 #define HTTP_FIELD_MINLEN 5

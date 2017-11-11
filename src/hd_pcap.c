@@ -1,12 +1,10 @@
-#ifndef _HTTPDUMP_PCAP_
-#define _HTTPDUMP_PCAP_
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <pcap.h>
 
-#include "httpdump_pkt.h"
+#include "hd_pcap.h"
+#include "hd_pkt.h"
 
 void httpdump_pcap(const struct pcap_pkthdr *pkthdr, const unsigned char *bytes)
 {
@@ -79,5 +77,3 @@ void httpdump_pcap(const struct pcap_pkthdr *pkthdr, const unsigned char *bytes)
 
     httpdump_pkt((unsigned char *)(bytes + i), seq, pkthdr->len - i, pkthdr->ts, &src, &dst);
 }
-
-#endif //_HTTPDUMP_PCAP_

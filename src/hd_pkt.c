@@ -1,13 +1,5 @@
-/*
- * @Author: JesseMK
- * @Date: 2017-10-23 21:56:19
- * @Last Modified by: JesseMK
- * @Last Modified time: 2017-11-10 15:36:57
- TODO: http://dpdk.org/doc/guides/prog_guide/ip_fragment_reassembly_lib.html
- */
-
-#ifndef _DPDK_HTTPDUMP_PKT_
-#define _DPDK_HTTPDUMP_PKT_
+#ifndef _DPDK_HTTPDUMP_FILE_
+#define _DPDK_HTTPDUMP_FILE_
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -18,38 +10,9 @@
 
 #include <rte_lcore.h>
 
-#define MAX_CORE_NUM 32
-
-typedef struct
-{
-    uint8_t ipver;
-    uint32_t ip4;
-    uint64_t ip6h;
-    uint64_t ip6l;
-    uint16_t port;
-} host_t;
-
-#include "httpdump_http.h"
-#include "uthash.h"
-
-typedef struct
-{
-    host_t src;
-    host_t dst;
-} hostpair_t;
-
-#define REASM_MAX_LENGTH 65536
-#define CACHE_FLUSH_TIME 16
-
-typedef struct
-{
-    hostpair_t key;
-    struct timeval ts;
-    uint32_t initialseq;
-    uint32_t nextseq;
-    char data[REASM_MAX_LENGTH];
-    UT_hash_handle hh;
-} record_t;
+#include "hd_pkt.h"
+#include "protocols/hd_http.h"
+// #include "uthash.h"
 
 record_t *hashtable[MAX_CORE_NUM] = {};
 record_t *hashtable_old[MAX_CORE_NUM] = {};
@@ -177,4 +140,4 @@ void httpdump_pkt(unsigned char *data, uint32_t seq, uint16_t len, struct timeva
     }
 }
 
-#endif //_HTTPDUMP_PKT_
+#endif //_HTTPDUMP_FILE_

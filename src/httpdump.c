@@ -11,7 +11,7 @@
 #include <rte_common.h>
 #include <rte_ethdev.h>
 
-#include "src/httpdump.h"
+#include "httpdump.h"
 #include "src/hd_config.h"
 #include "src/hd_init.h"
 

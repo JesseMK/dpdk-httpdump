@@ -7,7 +7,7 @@
 #include <rte_ether.h>
 
 #define MAX_LCORES 32
-#define DPDKCAP_WRITE_BURST_SIZE 512
+#define HTTPDUMP_WRITE_BURST_SIZE 512
 #define RTE_ETH_PCAP_SNAPLEN ETHER_MAX_JUMBO_FRAME_LEN
 
 static unsigned char tx_pcap_data[RTE_ETH_PCAP_SNAPLEN];

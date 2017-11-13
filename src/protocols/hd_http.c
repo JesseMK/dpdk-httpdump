@@ -1,9 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdint.h>
 #include <string.h>
-#include <time.h>
-#include <arpa/inet.h>
 
 #include "hd_http.h"
 #include "../hd_file.h"

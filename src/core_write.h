@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <time.h>
 
 #include <rte_ether.h>
 
@@ -33,7 +34,7 @@ struct core_write_config
   unsigned long rotate_seconds;
 };
 
-static struct core_write_stats *cores_stats_write_list;
+// extern struct core_write_stats *cores_stats_write_list;
 
 static void eth_pcap_gather_data(unsigned char *data, struct rte_mbuf *mbuf);
 

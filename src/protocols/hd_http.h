@@ -1,6 +1,10 @@
 #ifndef _HTTPDUMP_HTTP_
 #define _HTTPDUMP_HTTP_
 
+#include <time.h>
+#include <stdint.h>
+#include <arpa/inet.h>
+
 #include "../hd_pkt.h"
 
 #define HTTP_HEADER_MINLEN 12

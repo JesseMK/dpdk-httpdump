@@ -1,5 +1,4 @@
 #include <stdbool.h>
-#include <time.h>
 #include <string.h>
 #include <stdio.h>
 #include <signal.h>

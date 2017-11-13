@@ -2,6 +2,9 @@
 #define _DPDK_HTTPDUMP_PKT_
 
 #include <stdint.h>
+#include <time.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
 
 #include "uthash.h"
 

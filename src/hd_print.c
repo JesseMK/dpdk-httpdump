@@ -1,11 +1,21 @@
+/*
+ * @Author: JesseMK
+ * @Date: 2017-11-10 15:17:44
+ * @Last Modified by: JesseMK
+ * @Last Modified time: 2017-11-10 15:20:02
+ */
+
+/*
+ * This is just a temp file for restructure.
+ * Including two different print function.
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
 #include <time.h>
 #include <arpa/inet.h>
-
-#include "hd_print.h"
 
 inline void __print_ts(FILE *output, struct timeval ts)
 {

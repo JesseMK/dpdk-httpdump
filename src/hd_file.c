@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <string.h>
-// #include <stdint.h>
 #include <time.h>
 
 #include "hd_file.h"

@@ -22,6 +22,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     unsigned char *name = NULL;
     unsigned char *type = NULL;
     unsigned char *class = NULL;
+    unsigned char *time_tl = NULL;
     unsigned char *answer = NULL;
     unsigned char *answer_len = NULL;
     bool name_flag = false;
@@ -44,7 +45,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
         name = data + i + 1;
         type = data + j + 2;
-        class = type + 4;
+        class = type + 2;
 
         k--;
         i = j + 8;
@@ -54,6 +55,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     }
 
     // Answers
+    // TODO: Parse offset
     k = questions;
 
     while (i < len - DNS_HEADER_LEN && k > 0)
@@ -63,7 +65,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         if (name_flag)
         {
             name = data + (uint16_t *)(name + 1)
-            j = i + 2;
+                              j = i + 2;
         }
         else
         {
@@ -78,12 +80,15 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         }
 
         type = data + j + 2;
-        class = type + 4;
+        class = type + 2;
+        time_tl = class + 2;
+        answer_len = time_tl + 4;
+        answer = answer_len + 2;
 
         k--;
         i = j + 8;
-        fprintf(output, "|%s|%s|%s|",
-                name, type, class);
+        fprintf(output, "|%s|%s|%s|%.*s|",
+                name, type, class, answer_len, answer);
     }
 
     __print_ip(output, src);

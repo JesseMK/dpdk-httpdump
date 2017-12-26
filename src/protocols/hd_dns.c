@@ -25,7 +25,6 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     unsigned char *time_tl = NULL;
     unsigned char *answer = NULL;
     unsigned char *answer_len = NULL;
-    bool name_flag = false;
 
     if (len < DNS_HEADER_LEN)
         return;
@@ -61,11 +60,10 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     while (i < len - DNS_HEADER_LEN && k > 0)
     {
         name = data + i;
-        name_flag = (*name >> 4 == 12);
-        if (name_flag)
+        if ((*name >> 4 == 12))
         {
-            name = data + (uint16_t *)(name + 1)
-                              j = i + 2;
+            name = data + &(uint16_t *)(name + 1);
+            j = i + 2;
         }
         else
         {

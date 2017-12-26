@@ -18,7 +18,6 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     __print_ts(output, ts);
 
     uint16_t questions = (uint16_t *)data[3];
-    uint8_t len = 0;
     unsigned char *name = NULL;
     unsigned char *type = NULL;
     unsigned char *class = NULL;
@@ -62,7 +61,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         name = data + i;
         if ((*name >> 4 == 12))
         {
-            name = data + &(uint16_t *)(name + 1);
+            name = data + (uint16_t) * (name + 1);
             j = i + 2;
         }
         else

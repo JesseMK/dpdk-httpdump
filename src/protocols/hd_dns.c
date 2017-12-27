@@ -178,19 +178,10 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                 // Untreated name
                 if (i == j)
                 {
-                    if (data[j] < 1 || data[j] > 10)
-                    {
-                        fprintf(output, "|ERROR1@%u:%02x\n", j, data[j]);
-                        return;
-                    }
-
                     while (data[j] != 0 && j < len)
                     {
-                        if (data[j] > 10 || len - j < 5)
-                        {
-                            fprintf(output, "|ERROR3@%u:%02x\n", j, data[j]);
-                            return;
-                        }
+                        if (data[j] < 32 || data[j] > 126)
+                            data[j] = '_';
                         field_len = data[j];
                         data[j] = '.';
                         j += field_len + 1;

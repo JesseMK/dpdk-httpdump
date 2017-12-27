@@ -201,7 +201,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                         *(uint8_t *)(answer_len + 1), answer);
             }
 
-            i += *(uint8_t *)(answer_len + 1)
+            i += *(uint8_t *)(answer_len + 1);
         }
     }
     fprintf(output, "|");

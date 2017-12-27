@@ -104,7 +104,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         i = (j > i) ? j + 4 : i + 8;
 
         fprintf(output, "|name:%s|type:%u|class:%u",
-                name, *(uint16_t *)type, *(uint16_t *)class);
+                name, *(uint8_t *)type, *(uint8_t *)class);
     }
 
     // Answers
@@ -170,8 +170,8 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             i = answer + *(uint16_t *)(answer_len + 1);
 
             fprintf(output, "|name:%s|type:%u|class:%u|len:%u|answer:%*s",
-                    name, *(uint16_t *)type, *(uint16_t *)class,
-                    *(uint16_t *)(answer_len + 1), *(uint16_t *)(answer_len + 1), answer);
+                    name, *(uint8_t *)type, *(uint8_t *)class,
+                    *(uint8_t *)(answer_len + 1), *(uint8_t *)(answer_len + 1), answer);
         }
     }
     fprintf(output, "|");

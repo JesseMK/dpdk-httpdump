@@ -31,7 +31,7 @@ inline FILE *httpdump_file(int lcore_id)
     if (fp[lcore_id] == NULL)
     {
         char filename[64];
-        char timestring[16];
+        char timestring[20];
         struct tm *now_tm = localtime(&(now.tv_sec));
         strftime(timestring, sizeof(timestring), "%Y%m%d-%H%M%S", now_tm);
         snprintf(filename, sizeof(filename), "%s%s-core%d.log", BASIC_PATH, timestring, lcore_id);

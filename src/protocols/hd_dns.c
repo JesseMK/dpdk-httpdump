@@ -16,7 +16,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     FILE *output = httpdump_file(rte_lcore_id());
 
     __print_ts(output, ts);
-    fprintf(output, "DNS|");
+    fprintf(output, "|DNS|");
 
     uint16_t questions = (uint16_t *)data[3];
     unsigned char *name = NULL;

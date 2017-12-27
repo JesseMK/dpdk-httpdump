@@ -127,38 +127,38 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
             name = data + j + 1;
 
-            if ((data[j] < 1 || data[j] > 10) && data[j] != 0x2e)
-            {
-                fprintf(output, "|ERROR1@%u:%02x\n", j, data[j]);
-                return;
-            }
-
+            // Untreated name
             if (i == j)
             {
+                if (data[j] < 1 || data[j] > 10)
+                {
+                    fprintf(output, "|ERROR1@%u:%02x\n", j, data[j]);
+                    return;
+                }
                 while (data[j] != 0 && j < len)
                 {
-                    field_len = data[j];
-                    data[j] = '.';
-                    k = j + 1;
-                    while (k < j + field_len)
-                    {
-                        if (data[k] < 32 || data[k] > 126)
-                        {
-                            fprintf(output, "|ERROR2@%u:%02x\n", k, data[k]);
-                            return;
-                        }
-                        k++;
-                    }
-
-                    j = k + 1;
-                    if (j > len || data[j] > 10 || len - j < 5)
+                    if (data[j] > 10 || len - j < 5)
                     {
                         fprintf(output, "|ERROR3@%u:%02x\n", j, data[j]);
                         return;
                     }
+                    field_len = data[j];
+                    data[j] = '.';
+                    // k = j + 1;
+                    // while (k < j + field_len)
+                    // {
+                    //     if (data[k] < 32 || data[k] > 126)
+                    //     {
+                    //         fprintf(output, "|ERROR2@%u:%02x\n", k, data[k]);
+                    //         return;
+                    //     }
+                    //     k++;
+                    // }
+
+                    j += field_len + 1;
                 }
+                j++;
             }
-            j++;
 
             type = (j > i) ? data + j : data + i + 1;
             class = type + 2;

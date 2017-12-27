@@ -169,7 +169,13 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             {
                 struct in_addr addr;
                 addr.s_addr = htobe32(answer);
-                fprintf(output, "|%s", inet_ntoa(addr));
+                fprintf(output, "|answer:%s", inet_ntoa(addr));
+            }
+            else
+            {
+
+                fprintf(output, "|answer::%.*s",
+                        *(uint8_t *)(answer_len + 1), answer);
             }
         }
     }

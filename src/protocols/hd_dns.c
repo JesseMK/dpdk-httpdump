@@ -75,11 +75,12 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             }
 
             j = k + 1;
+            data[j] = '.';
             if (j > len || data[j] > 10 || len - j < 5)
                 return;
         }
 
-        name = data + i;
+        name = data + i + 1;
         type = data + j;
         class = type + 2;
 

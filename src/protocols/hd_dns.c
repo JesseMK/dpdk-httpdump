@@ -32,6 +32,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     {
         fprintf(output, "%x", data[i]);
     }
+    fprintf(output, "\n");
 
     __print_ts(output, ts);
     fprintf(output, "|DNS");

@@ -25,8 +25,13 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     if (len < DNS_HEADER_LEN)
         return;
 
-    if (data[DNS_HEADER_LEN] < 1 || data[DNS_HEADER_LEN] > 10)
-        return;
+    uint32_t pos = DNS_HEADER_LEN;
+    while (data[pos] != 0)
+    {
+        pos += data[pos];
+        if (pos > len || data[pos] < 0 || data[pos] > 10)
+            return;
+    }
 
     FILE *output = httpdump_file(rte_lcore_id());
 

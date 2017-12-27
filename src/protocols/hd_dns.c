@@ -165,7 +165,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                     *(uint8_t *)(answer_len + 1));
 
             // TODO:ipv6
-            if (answer_len == 4)
+            if (*(uint8_t *)(answer_len + 1) == 4)
             {
                 struct in_addr addr;
                 addr.s_addr = htobe32(answer);
@@ -174,7 +174,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             else
             {
 
-                fprintf(output, "|answer::%.*s",
+                fprintf(output, "|answer:%.*s",
                         *(uint8_t *)(answer_len + 1), answer);
             }
         }

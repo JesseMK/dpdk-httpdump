@@ -27,6 +27,8 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
     FILE *output = httpdump_file(rte_lcore_id());
 
+    fprintf(output, "\nraw_data: %*x\n", len, data);
+
     __print_ts(output, ts);
     fprintf(output, "|DNS");
 
@@ -35,7 +37,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
     while (i < len && k > 0)
     {
-        j = i - 1;
+        j = i;
         while (data[j] != 0)
         {
             if (data[j] < 32 || data[j] > 126)

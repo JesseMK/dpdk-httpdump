@@ -39,12 +39,12 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
     FILE *output = httpdump_file(rte_lcore_id());
 
-    fprintf(output, "\nraw_data: %02x ", data[0]);
-    for (int i = 1; i < len; i++)
-    {
-        fprintf(output, "%02x ", data[i]);
-    }
-    fprintf(output, "\n");
+    // fprintf(output, "\nraw_data: %02x ", data[0]);
+    // for (int i = 1; i < len; i++)
+    // {
+    //     fprintf(output, "%02x ", data[i]);
+    // }
+    // fprintf(output, "\n");
 
     __print_ts(output, ts);
     fprintf(output, "|DNS|Queries:%u", questions);
@@ -58,7 +58,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         if (((data[i] & 0xf0) >> 4) == 0xc)
         {
             j = (uint16_t)(data[i + 1] & 0xf);
-            fprintf(output, "|flag:%02x|pos:%u|offset:%u", (data[i] & 0xf0) >> 4, i, j);
+            // fprintf(output, "|flag:%02x|pos:%u|offset:%u", (data[i] & 0xf0) >> 4, i, j);
         }
         else
             j = i;
@@ -70,14 +70,14 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         {
             if (data[j] < 1 || data[j] > 10)
             {
-                fprintf(output, "|ERROR1@%u:%02x\n", j, data[j]);
+                // fprintf(output, "|ERROR1@%u:%02x\n", j, data[j]);
                 return;
             }
             while (data[j] != 0 && j < len)
             {
                 if (data[j] > 10 || len - j < 5)
                 {
-                    fprintf(output, "|ERROR3@%u:%02x\n", j, data[j]);
+                    // fprintf(output, "|ERROR3@%u:%02x\n", j, data[j]);
                     return;
                 }
                 field_len = data[j];
@@ -104,7 +104,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         // TODO: Parse offset
         q = *(uint16_t *)(data + 7);
 
-        fprintf(output, "|RSP:%u|pos:%u", q, i);
+        // fprintf(output, "|RSP:%u|pos:%u", q, i);
 
         while (i < len && q > 0)
         {
@@ -114,7 +114,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             else
                 j = i;
 
-            fprintf(output, "|flag:%02x|pos:%u|offset:%u", (data[i] & 0xf0) >> 4, i, j);
+            // fprintf(output, "|flag:%02x|pos:%u|offset:%u", (data[i] & 0xf0) >> 4, i, j);
 
             name = data + j + 1;
 
@@ -123,14 +123,14 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             {
                 if (data[j] < 1 || data[j] > 10)
                 {
-                    fprintf(output, "|ERROR1@%u:%02x\n", j, data[j]);
+                    // fprintf(output, "|ERROR1@%u:%02x\n", j, data[j]);
                     return;
                 }
                 while (data[j] != 0 && j < len)
                 {
                     if (data[j] > 10 || len - j < 5)
                     {
-                        fprintf(output, "|ERROR3@%u:%02x\n", j, data[j]);
+                        // fprintf(output, "|ERROR3@%u:%02x\n", j, data[j]);
                         return;
                     }
                     field_len = data[j];

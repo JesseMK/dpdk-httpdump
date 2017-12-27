@@ -92,4 +92,8 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     fprintf(output, "|%u|", src->port);
     __print_ip(output, dst);
     fprintf(output, "|%u\n", dst->port);
+
+#ifdef DEBUG
+    fprintf(output, "|DNS");
+#endif
 }

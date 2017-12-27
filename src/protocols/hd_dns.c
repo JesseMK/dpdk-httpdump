@@ -102,12 +102,12 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         // TODO: Parse offset
         q = *(uint16_t *)(data + 7);
 
-        fprintf(output, "|RSP:%u", j, q);
+        fprintf(output, "|RSP:%u", q);
 
         while (i < len && q > 0)
         {
             // NAME
-            if ((data[i] >> 4) == 0xc)
+            if (((data[i]&0xf0) >> 4) == 0xc)
                 j = data[i] + *(uint16_t *)(data[i] & 0xf);
             else
                 j = i;

@@ -76,14 +76,14 @@ void httpdump_pcap(const struct pcap_pkthdr *pkthdr, const unsigned char *bytes)
     if (udp_flag == 0)
     {
         // TCP Header
-        // src.port = be16toh(*((uint16_t *)(bytes + i)));
-        // dst.port = be16toh(*((uint16_t *)(bytes + i + 2)));
-        // uint32_t seq = be32toh(*((uint32_t *)(bytes + i + 4)));
-        // i += (bytes[i + 12] & 0xF0) >> 2;
+        src.port = be16toh(*((uint16_t *)(bytes + i)));
+        dst.port = be16toh(*((uint16_t *)(bytes + i + 2)));
+        uint32_t seq = be32toh(*((uint32_t *)(bytes + i + 4)));
+        i += (bytes[i + 12] & 0xF0) >> 2;
 
-        // if (i >= pkthdr->len)
-        //     return;
-        // httpdump_pkt((unsigned char *)(bytes + i), seq, pkthdr->len - i, pkthdr->ts, &src, &dst);
+        if (i >= pkthdr->len)
+            return;
+        httpdump_pkt((unsigned char *)(bytes + i), seq, pkthdr->len - i, pkthdr->ts, &src, &dst);
     }
     else
     {

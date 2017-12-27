@@ -35,7 +35,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
     while (i < len && k > 0)
     {
-        j = i;
+        j = i - 1;
         while (data[j] != 0)
         {
             if (data[j] < 32 || data[j] > 126)
@@ -57,43 +57,43 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
     // Answers
     // TODO: Parse offset
-    k = questions;
+    // k = questions;
 
-    while (i < len && k > 0)
-    {
-        name = data + i;
-        if ((*name >> 4 == 12))
-        {
-            name = data + (uint16_t) * (name + 1);
-            j = i + 2;
-        }
-        else
-        {
-            name = data + i + 1;
+    // while (i < len && k > 0)
+    // {
+    //     name = data + i;
+    //     if ((*name >> 4 == 12))
+    //     {
+    //         name = data + (uint16_t) * (name + 1);
+    //         j = i + 2;
+    //     }
+    //     else
+    //     {
+    //         name = data + i + 1;
 
-            j = i;
-            while (data[j] != 0)
-            {
-                if (data[j] < 32 || data[j] > 126)
-                    data[j] = '.';
-                j++;
-                if (j > len)
-                    return;
-            }
-            j++;
-        }
+    //         j = i;
+    //         while (data[j] != 0)
+    //         {
+    //             if (data[j] < 32 || data[j] > 126)
+    //                 data[j] = '.';
+    //             j++;
+    //             if (j > len)
+    //                 return;
+    //         }
+    //         j++;
+    //     }
 
-        type = data + j;
-        class = type + 2;
-        time_tl = class + 2;
-        answer_len = time_tl + 4;
-        answer = answer_len + 2;
+    //     type = data + j;
+    //     class = type + 2;
+    //     time_tl = class + 2;
+    //     answer_len = time_tl + 4;
+    //     answer = answer_len + 2;
 
-        k--;
-        i = j + 10 + answer_len;
-        fprintf(output, "|%s|%u|%u|%.*s|",
-                name, (uint16_t)*type, (uint16_t) * class, (uint16_t)*answer_len, answer);
-    }
+    //     k--;
+    //     i = j + 10 + answer_len;
+    //     fprintf(output, "|%s|%u|%u|%.*s|",
+    //             name, (uint16_t)*type, (uint16_t) * class, (uint16_t)*answer_len, answer);
+    // }
 
     __print_ip(output, src);
     fprintf(output, "|%u|", src->port);

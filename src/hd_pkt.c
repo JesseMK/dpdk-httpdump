@@ -147,5 +147,3 @@ void httpdump_pkt(unsigned char *data, uint32_t seq, uint16_t len, struct timeva
         hashtable[lcore_id] = NULL;
     }
 }
-
-#endif

@@ -33,7 +33,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     // Queries
     uint32_t i = DNS_HEADER_LEN, j = 0, k = questions;
 
-    while (i < len - DNS_HEADER_LEN && k > 0)
+    while (i < len && k > 0)
     {
         j = i;
         while (data[j] != 0)
@@ -42,6 +42,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                 data[j] = '.';
             j++;
         }
+        j++;
 
         name = data + i + 1;
         type = data + j;
@@ -58,7 +59,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     // TODO: Parse offset
     k = questions;
 
-    while (i < len - DNS_HEADER_LEN && k > 0)
+    while (i < len && k > 0)
     {
         name = data + i;
         if ((*name >> 4 == 12))
@@ -69,16 +70,17 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         else
         {
             name = data + i + 1;
-        }
 
-        j = i;
-        while (data[j] != 0)
-        {
-            if (data[j] < 32 || data[j] > 126)
-                data[j] = '.';
+            j = i;
+            while (data[j] != 0)
+            {
+                if (data[j] < 32 || data[j] > 126)
+                    data[j] = '.';
+                j++;
+                if (j > len)
+                    return;
+            }
             j++;
-            if (j > len)
-                return;
         }
 
         type = data + j;

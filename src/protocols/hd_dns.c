@@ -56,11 +56,12 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     {
         // NAME
         if (((data[i] & 0xf0) >> 4) == 0xc)
+        {
             j = (uint16_t)(data[i + 1] & 0xf);
+            fprintf(output, "|flag:%02x|pos:%u|offset:%u", (data[i] & 0xf0) >> 4, i, j);
+        }
         else
             j = i;
-
-        fprintf(output, "|flag:%02x|pos:%u|offset:%u", (data[i] & 0xf0) >> 4, i, j);
 
         name = data + j + 1;
 
@@ -79,7 +80,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             {
                 if (data[k] < 32 || data[k] > 126)
                 {
-                    fprintf(output, "|ERROR2@%u:%02x\n", j, data[j]);
+                    fprintf(output, "|ERROR2@%u:%02x\n", k, data[k]);
                     return;
                 }
                 k++;
@@ -138,7 +139,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                 {
                     if (data[k] < 32 || data[k] > 126)
                     {
-                        fprintf(output, "|ERROR2@%u:%02x\n", j, data[j]);
+                        fprintf(output, "|ERROR2@%u:%02x\n", k, data[k]);
                         return;
                     }
                     k++;

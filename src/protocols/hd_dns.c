@@ -98,10 +98,11 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
     if (data[3] > 0x80)
     {
-        fprintf(output, "|RSP", j);
         // Answers
         // TODO: Parse offset
-        q = *(uint16_t *)(data + 7), field_len = 0;
+        q = *(uint16_t *)(data + 7);
+
+        fprintf(output, "RSP:%u", j, q);
 
         while (i < len && q > 0)
         {

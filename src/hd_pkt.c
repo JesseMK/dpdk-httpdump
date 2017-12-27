@@ -119,6 +119,12 @@ void httpdump_pkt(unsigned char *data, uint32_t seq, uint16_t len, struct timeva
                 }
             }
         }
+        else
+        {
+            // TODO: DNS Identify
+            if (src->port == 53 || dst->port == 53)
+                httpdump_dns(data, len, ts, src, dst);
+        }
     }
 
     uint64_t ctime = ts.tv_sec - ts.tv_sec % CACHE_FLUSH_TIME;

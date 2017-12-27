@@ -158,7 +158,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                 }
             }
 
-            type = (j > i) ? data + j : data + i + 4;
+            type = (j > i) ? data + i + 4 : data + j;
             class = type + 2;
             time_tl = class + 2;
             answer_len = time_tl + 4;

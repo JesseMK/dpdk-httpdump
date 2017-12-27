@@ -148,7 +148,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
             q--;
             // i -> answer
-            i = ((j > i) ? data + j : data + i + 2) + 10;
+            i = ((j > i) ? j : i + 2) + 10;
 
             // TODO: Big end
             fprintf(output, "|name:%s|type:%u|class:%u|len:%u",

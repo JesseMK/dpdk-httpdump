@@ -145,17 +145,6 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                     }
                     field_len = data[j];
                     data[j] = '.';
-                    // k = j + 1;
-                    // while (k < j + field_len)
-                    // {
-                    //     if (data[k] < 32 || data[k] > 126)
-                    //     {
-                    //         fprintf(output, "|ERROR2@%u:%02x\n", k, data[k]);
-                    //         return;
-                    //     }
-                    //     k++;
-                    // }
-
                     j += field_len + 1;
                 }
                 j++;
@@ -168,12 +157,20 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             answer = answer_len + 2;
 
             q--;
-            i = answer + *(uint16_t *)(answer_len + 1);
+            i = answer + *(uint8_t *)(answer_len + 1);
 
             // TODO: Big end
-            fprintf(output, "|name:%s|type:%u|class:%u|len:%u|answer:%*s",
+            fprintf(output, "|name:%s|type:%u|class:%u|len:%u",
                     name, *(uint8_t *)(type + 1), *(uint8_t *)(class + 1),
-                    *(uint8_t *)(answer_len + 1), *(uint8_t *)(answer_len + 1), answer);
+                    *(uint8_t *)(answer_len + 1));
+
+            // TODO:ipv6
+            if (answer_len == 4)
+            {
+                struct in_addr addr;
+                addr.s_addr = htobe32(answer);
+                fprintf(output, "|%s", inet_ntoa(addr));
+            }
         }
     }
     fprintf(output, "|");

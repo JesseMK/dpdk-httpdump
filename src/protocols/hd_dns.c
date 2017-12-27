@@ -107,8 +107,8 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         while (i < len && q > 0)
         {
             // NAME
-            if (((data[i]&0xf0) >> 4) == 0xc)
-                j = data[i] + *(uint16_t *)(data[i] & 0xf);
+            if (((data[i] & 0xf0) >> 4) == 0xc)
+                j = *(uint16_t *)(data[i + 1] & 0xf);
             else
                 j = i;
 

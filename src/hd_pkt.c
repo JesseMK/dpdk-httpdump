@@ -27,6 +27,13 @@ void init_hashtable(int lcore_id)
 
 void httpdump_pkt(unsigned char *data, uint32_t seq, uint16_t len, struct timeval ts, host_t *src, host_t *dst)
 {
+
+    // TODO: DNS Identify
+    if (src->port == 53 || dst->port == 53)
+    {
+        httpdump_dns(data, len, ts, src, dst);
+        return;
+    }
     int lcore_id = rte_lcore_id();
 
     if (len > HTTP_HEADER_MINLEN && (strncmp(data, "GET ", 4) == 0 ||
@@ -118,12 +125,6 @@ void httpdump_pkt(unsigned char *data, uint32_t seq, uint16_t len, struct timeva
                     record->nextseq = 0;
                 }
             }
-        }
-        else
-        {
-            // TODO: DNS Identify
-            if (src->port == 53 || dst->port == 53)
-                httpdump_dns(data, len, ts, src, dst);
         }
     }
 

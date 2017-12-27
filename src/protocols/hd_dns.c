@@ -90,7 +90,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         class = type + 2;
 
         q--;
-        i = j + 4;
+        i = j + 5;
 
         fprintf(output, "|name:%s|type:%u|class:%u",
                 name, *(uint16_t *)type, *(uint16_t *)class);
@@ -152,7 +152,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             answer = answer_len + 2;
 
             q--;
-            i = j + 4;
+            i = answer + answer_len;
 
             fprintf(output, "|name:%s|type:%u|class:%u|answer:%*s||",
                     name, *(uint16_t *)type, *(uint16_t *)class,

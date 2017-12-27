@@ -56,6 +56,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     {
         // NAME
         j = i;
+        name = data + j + 1;
         if (data[j] < 1 || data[j] > 10)
         {
             fprintf(output, "|ERROR@%u\n", j);
@@ -97,6 +98,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
     if (data[3] > 0x80)
     {
+        fprintf(output, "|RSP", j);
         // Answers
         // TODO: Parse offset
         q = *(uint16_t *)(data + 7), field_len = 0;

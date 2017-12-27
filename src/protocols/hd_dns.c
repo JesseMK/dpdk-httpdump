@@ -95,20 +95,21 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                 }
             }
         }
+        j++;
 
         type = (j > i) ? data + j : data + i + 4;
         class = type + 2;
 
         q--;
-        i = j + 4;
+        i = (j > i) ? j + 4 : i + 8;
 
         fprintf(output, "|name:%s|type:%u|class:%u",
                 name, *(uint16_t *)type, *(uint16_t *)class);
     }
 
+    // Answers
     if (data[2] > 0x7f)
     {
-        // Answers
         // TODO: Parse offset
         q = *(uint16_t *)(data + 7);
 
@@ -157,6 +158,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                     }
                 }
             }
+            j++;
 
             type = (j > i) ? data + j : data + i + 1;
             class = type + 2;

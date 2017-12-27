@@ -1,3 +1,15 @@
+/*
+ * @Author: JesseMK
+ * @Date: 2017-11-10 15:17:44
+ * @Last Modified by: JesseMK
+ * @Last Modified time: 2017-11-10 15:20:02
+ */
+
+/*
+ * This is just a temp file for restructure.
+ * Including two different print function.
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -21,7 +33,7 @@ inline void __print_ip(FILE *output, host_t *host)
     {
         struct in_addr addr;
         addr.s_addr = htobe32(host->ip4);
-        // fprintf(output, "%s", inet_ntoa(addr));
+        fprintf(output, "%s", inet_ntoa(addr));
     }
     else if (host->ipver == 6)
     {

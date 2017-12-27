@@ -182,10 +182,6 @@ void httpdump_http(unsigned char *data, uint32_t len, struct timeval ts, host_t 
         if (!type)
             return;
     }
-    else
-    {
-        return;
-    }
 
     FILE *output = httpdump_file(rte_lcore_id());
 

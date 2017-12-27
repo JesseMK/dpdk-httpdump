@@ -1,6 +1,3 @@
-#ifndef _DPDK_HTTPDUMP_FILE_
-#define _DPDK_HTTPDUMP_FILE_
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -25,6 +22,7 @@ void init_hashtable(int lcore_id)
 
 void httpdump_pkt(unsigned char *data, uint32_t seq, uint16_t len, struct timeval ts, host_t *src, host_t *dst)
 {
+
     int lcore_id = rte_lcore_id();
 
     if (len > HTTP_HEADER_MINLEN && (strncmp(data, "GET ", 4) == 0 ||
@@ -117,6 +115,14 @@ void httpdump_pkt(unsigned char *data, uint32_t seq, uint16_t len, struct timeva
                 }
             }
         }
+        else
+        {
+            if (src->port == 53 || dst->port == 53)
+            {
+                httpdump_dns(data, len, ts, src, dst);
+                return;
+            }
+        }
     }
 
     uint64_t ctime = ts.tv_sec - ts.tv_sec % CACHE_FLUSH_TIME;
@@ -137,5 +143,3 @@ void httpdump_pkt(unsigned char *data, uint32_t seq, uint16_t len, struct timeva
         hashtable[lcore_id] = NULL;
     }
 }
-
-#endif //_HTTPDUMP_FILE_

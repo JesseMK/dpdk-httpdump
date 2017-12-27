@@ -6,6 +6,7 @@
 #include <arpa/inet.h>
 
 #include "../hd_pkt.h"
+#include "hd_dns.h"
 
 #define HTTP_HEADER_MINLEN 12
 #define HTTP_FIELD_MINLEN 5

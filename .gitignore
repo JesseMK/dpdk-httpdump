@@ -60,3 +60,4 @@ _preinstall
 build/
 dpdk-httpdump
 /.doc
+/log

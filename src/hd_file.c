@@ -4,7 +4,7 @@
 
 #include "hd_file.h"
 
-uint32_t rotate_interval = 0;
+uint32_t rotate_interval = 600;
 uint32_t rotate_last[MAX_CORE_NUM] = {0};
 FILE *fp[MAX_CORE_NUM] = {};
 
@@ -33,8 +33,8 @@ inline FILE *httpdump_file(int lcore_id)
         char filename[64];
         char timestring[20];
         struct tm *now_tm = localtime(&(now.tv_sec));
-        strftime(timestring, sizeof timestring, "%Y%m%d-%H%M%S", now_tm);
-        snprintf(filename, sizeof filename, "%s%s-core%d.log", BASIC_PATH, timestring, lcore_id);
+        strftime(timestring, sizeof(timestring), "%Y%m%d-%H%M%S", now_tm);
+        snprintf(filename, sizeof(filename), "%s%s-core%d.log", BASIC_PATH, timestring, lcore_id);
         fprintf(stdout, "Opening log file: %s\n", filename);
         fp[lcore_id] = fopen(filename, "a");
         if (fp[lcore_id] == NULL)

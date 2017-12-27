@@ -112,6 +112,8 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             else
                 j = i;
 
+            fprintf(output, "|offset:%u", j);
+
             name = data + j + 1;
 
             if (data[j] < 1 || data[j] > 10)

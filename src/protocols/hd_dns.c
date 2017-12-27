@@ -86,7 +86,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         k--;
         i = j + 8;
         fprintf(output, "|%s|%d|%d|%.*s|",
-                name, type, class, answer_len, answer);
+                name, (uint16_t)*type, (uint16_t)*class, (uint16_t)*answer_len, answer);
     }
 
     __print_ip(output, src);

@@ -32,8 +32,8 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
     while (data[pos] != 0)
     {
-        pos += data[pos];
-        if (pos > len || data[pos] < 0 || data[pos] > 10)
+        pos += data[pos] + 1;
+        if (pos > len || data[pos] < 0 || data[pos] > 10 || len - pos < 5)
             return;
     }
 

@@ -193,20 +193,20 @@ void httpdump_http(unsigned char *data, uint32_t len, struct timeval ts, host_t 
         return;
     }
 
-    FILE *output = httpdump_file(rte_lcore_id());
+    // FILE *output = httpdump_file(rte_lcore_id());
 
-    __print_ts(output, ts);
-    fprintf(output, "|%s|%s|%s|%s|%s|%s|",
-            type == NULL ? "" : type,
-            domain == NULL ? "" : domain,
-            path == NULL ? "" : path,
-            conttype == NULL ? "" : conttype,
-            contlen == NULL ? "" : contlen,
-            referer == NULL ? "" : referer);
+    // __print_ts(output, ts);
+    // fprintf(output, "|%s|%s|%s|%s|%s|%s|",
+    //         type == NULL ? "" : type,
+    //         domain == NULL ? "" : domain,
+    //         path == NULL ? "" : path,
+    //         conttype == NULL ? "" : conttype,
+    //         contlen == NULL ? "" : contlen,
+    //         referer == NULL ? "" : referer);
 
-    __print_ip(output, src);
-    fprintf(output, "|%u|", src->port);
-    __print_ip(output, dst);
-    fprintf(output, "|%u|%s\n", dst->port,
-            useragent == NULL ? "" : useragent);
+    // __print_ip(output, src);
+    // fprintf(output, "|%u|", src->port);
+    // __print_ip(output, dst);
+    // fprintf(output, "|%u|%s\n", dst->port,
+    //         useragent == NULL ? "" : useragent);
 }

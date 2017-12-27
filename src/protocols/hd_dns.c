@@ -27,10 +27,10 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
     FILE *output = httpdump_file(rte_lcore_id());
 
-    fprintf(output, "\nraw_data: %x", data[0]);
+    fprintf(output, "\nraw_data: %02x ", data[0]);
     for (int i = 1; i < len; i++)
     {
-        fprintf(output, "%x", data[i]);
+        fprintf(output, "%02x ", data[i]);
     }
     fprintf(output, "\n");
 

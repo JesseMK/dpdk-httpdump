@@ -55,11 +55,18 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     while (i < len && q > 0)
     {
         // NAME
-        j = i;
+        if (((data[i] & 0xf0) >> 4) == 0xc)
+            j = (uint16_t)(data[i + 1] & 0xf);
+        else
+            j = i;
+
+        fprintf(output, "|flag:%02x|pos:%u|offset:%u", (data[i] & 0xf0) >> 4, i, j);
+
         name = data + j + 1;
-        if (data[j] < 1 || data[j] > 10)
+
+        if ((data[j] < 1 || data[j] > 10) && data[j] != 0x2e)
         {
-            fprintf(output, "|ERROR1@%u\n", j);
+            fprintf(output, "|ERROR1@%u:%02x\n", j, data[j]);
             return;
         }
 
@@ -72,7 +79,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             {
                 if (data[k] < 32 || data[k] > 126)
                 {
-                    fprintf(output, "|ERROR2@%u\n", k);
+                    fprintf(output, "|ERROR2@%u:%02x\n", j, data[j]);
                     return;
                 }
                 k++;
@@ -81,12 +88,12 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             j = k + 1;
             if (j > len || data[j] > 10 || len - j < 5)
             {
-                fprintf(output, "|ERROR3@%u\n", j);
+                fprintf(output, "|ERROR3@%u:%02x\n", j, data[j]);
                 return;
             }
         }
 
-        type = data + j;
+        type = (j > i) ? data + j : data + i + 4;
         class = type + 2;
 
         q--;

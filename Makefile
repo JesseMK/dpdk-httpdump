@@ -23,7 +23,7 @@ SRCS-y += src/protocols/hd_http.c src/protocols/hd_dns.c
 CFLAGS += -O3 -DHASH_FUNCTION=HASH_SFH
 # LDLIBS += -lpcap
 
-# CFLAGS += -g
+CFLAGS += -g
 # CFLAGS += -DDEBUG
 # CFLAGS += $(WERROR_FLAGS)
 

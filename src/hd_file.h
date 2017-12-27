@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 #define MAX_CORE_NUM 64
-#define BASIC_PATH "/dev/shm/dpdk-httpdump/"
+#define BASIC_PATH "log/"
 
 extern uint32_t rotate_interval;
 extern uint32_t rotate_last[MAX_CORE_NUM];

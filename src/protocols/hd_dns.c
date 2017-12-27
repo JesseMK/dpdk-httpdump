@@ -85,7 +85,6 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             }
         }
 
-        name = data + i + 1;
         type = data + j;
         class = type + 2;
 
@@ -96,7 +95,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                 name, *(uint16_t *)type, *(uint16_t *)class);
     }
 
-    if ((data[3] & 0x80) > 0)
+    if (data[3] > 0x80)
     {
         // Answers
         // TODO: Parse offset
@@ -105,7 +104,13 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         while (i < len && q > 0)
         {
             // NAME
-            j = i;
+            if ((data[i] >> 4) == 0xc)
+                j = data[i] + *(uint16_t *)(data[i] & 0xf);
+            else
+                j = i;
+
+            name = data + j + 1;
+
             if (data[j] < 1 || data[j] > 10)
             {
                 fprintf(output, "|ERROR@%u\n", j);
@@ -135,8 +140,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                 }
             }
 
-            name = data + i + 1;
-            type = data + j;
+            type = (j > i) ? data + j : data + i + 4;
             class = type + 2;
             time_tl = class + 2;
             answer_len = time_tl + 4;

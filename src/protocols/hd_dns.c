@@ -116,7 +116,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
             name = data + j + 1;
 
-            if ((data[j] < 1 || data[j] > 10) && data[j] != '.')
+            if ((data[j] < 1 || data[j] > 10) && data[j] != 0x2e)
             {
                 fprintf(output, "|ERROR1@%u:%02x\n", j, data[j]);
                 return;
@@ -154,7 +154,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             q--;
             i = answer + *(uint16_t *)(answer_len + 1);
 
-            fprintf(output, "|name:%s|type:%u|class:%u|answer:%*s||",
+            fprintf(output, "|name:%s|type:%u|class:%u|answer:%*s",
                     name, *(uint16_t *)type, *(uint16_t *)class,
                     *(uint16_t *)(answer_len + 1), answer);
         }

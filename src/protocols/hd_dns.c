@@ -14,7 +14,7 @@
 void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *src, host_t *dst)
 {
 
-    uint16_t questions = (uint16_t *)data[3];
+    uint16_t questions = (uint16_t *)data[4];
     unsigned char *name = NULL;
     unsigned char *type = NULL;
     unsigned char *class = NULL;

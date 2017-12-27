@@ -25,17 +25,17 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     if (len < DNS_HEADER_LEN)
         return;
 
-    uint32_t pos = DNS_HEADER_LEN;
+    // uint32_t pos = DNS_HEADER_LEN;
 
-    if (data[pos] < 1 || data[pos] > 10)
-        return;
+    // if (data[pos] < 1 || data[pos] > 10)
+    //     return;
 
-    while (data[pos] != 0)
-    {
-        pos += data[pos] + 1;
-        if (pos > len || data[pos] < 0 || data[pos] > 10 || len - pos < 5)
-            return;
-    }
+    // while (data[pos] != 0)
+    // {
+    //     pos += data[pos] + 1;
+    //     if (pos > len || data[pos] < 0 || data[pos] > 10 || len - pos < 5)
+    //         return;
+    // }
 
     FILE *output = httpdump_file(rte_lcore_id());
 

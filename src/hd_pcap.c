@@ -15,6 +15,7 @@ void httpdump_pcap(const struct pcap_pkthdr *pkthdr, const unsigned char *bytes)
 
     host_t src;
     host_t dst;
+    char udp_flag = 0;
     memset(&src, 0, sizeof(host_t));
     memset(&dst, 0, sizeof(host_t));
 
@@ -37,8 +38,11 @@ void httpdump_pcap(const struct pcap_pkthdr *pkthdr, const unsigned char *bytes)
         i += 2;
         if ((bytes[i] & 0xF0) != 0x40) // Require: version = 4
             return;
-        if (bytes[i + 9] != 6) // Require: protocol = 6 (TCP)
-            return;
+        if (bytes[i + 9] != 6)      // Require: protocol = 6 (TCP)
+            if (bytes[i + 9] != 17) // Require: protocol = 17 (UDP)
+                return;
+            else
+                udp_flag = 1;
         src.ipver = 4;
         src.ip4 = be32toh(*(uint32_t *)&bytes[i + 12]);
         dst.ipver = 4;
@@ -52,8 +56,11 @@ void httpdump_pcap(const struct pcap_pkthdr *pkthdr, const unsigned char *bytes)
         if ((bytes[i] & 0xF0) != 0x60) // Require: version = 6
             return;
         /* TODO: IPv6 Extension Headers? */
-        if (bytes[i + 6] != 6) // Require: next header = 6 (TCP)
-            return;
+        if (bytes[i + 9] != 6)      // Require: protocol = 6 (TCP)
+            if (bytes[i + 9] != 17) // Require: protocol = 17 (UDP)
+                return;
+            else
+                udp_flag = 1;
         src.ipver = 6;
         src.ip6h = be64toh(*(uint64_t *)&bytes[i + 8]);
         src.ip6l = be64toh(*(uint64_t *)&bytes[i + 16]);
@@ -66,14 +73,20 @@ void httpdump_pcap(const struct pcap_pkthdr *pkthdr, const unsigned char *bytes)
     if (i > pkthdr->len - 20)
         return;
 
-    // TCP Header
-    src.port = be16toh(*((uint16_t *)(bytes + i)));
-    dst.port = be16toh(*((uint16_t *)(bytes + i + 2)));
-    uint32_t seq = be32toh(*((uint32_t *)(bytes + i + 4)));
-    i += (bytes[i + 12] & 0xF0) >> 2;
+    if (udp_flag == 1)
+    {
+        // TCP Header
+        src.port = be16toh(*((uint16_t *)(bytes + i)));
+        dst.port = be16toh(*((uint16_t *)(bytes + i + 2)));
+        uint32_t seq = be32toh(*((uint32_t *)(bytes + i + 4)));
+        i += (bytes[i + 12] & 0xF0) >> 2;
 
-    if (i >= pkthdr->len)
-        return;
-
-    httpdump_pkt((unsigned char *)(bytes + i), seq, pkthdr->len - i, pkthdr->ts, &src, &dst);
+        if (i >= pkthdr->len)
+            return;
+        httpdump_pkt((unsigned char *)(bytes + i), seq, pkthdr->len - i, pkthdr->ts, &src, &dst);
+    }
+    else
+    {
+        httpdump_dns((unsigned char *)(bytes + i + 8), pkthdr->len - i, pkthdr->ts, &src, &dst);
+    }
 }

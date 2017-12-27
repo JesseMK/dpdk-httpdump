@@ -25,6 +25,9 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     if (len < DNS_HEADER_LEN)
         return;
 
+    if (data[DNS_HEADER_LEN] < 1 || data[DNS_HEADER_LEN] > 10)
+        return;
+
     FILE *output = httpdump_file(rte_lcore_id());
 
     fprintf(output, "\nraw_data: %02x ", data[0]);

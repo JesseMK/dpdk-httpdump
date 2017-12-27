@@ -46,11 +46,11 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     }
     fprintf(output, "\n");
 
-    __print_ts(output, ts);
-    fprintf(output, "|DNS");
-
     // Queries
     uint32_t i = DNS_HEADER_LEN, j = 0, k = questions;
+
+    __print_ts(output, ts);
+    fprintf(output, "|DNS|Queries:%u", k);
 
     while (i < len && k > 0)
     {
@@ -63,7 +63,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         }
         j++;
 
-        name = data + i + 1;
+        name = data + i;
         type = data + j;
         class = type + 2;
 

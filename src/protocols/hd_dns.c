@@ -44,11 +44,11 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         }
 
         name = data + i + 1;
-        type = data + j + 2;
+        type = data + j;
         class = type + 2;
 
         k--;
-        i = j + 8;
+        i = j + 4;
 
         fprintf(output, "|%s|%s|%s|",
                 name, type, class);
@@ -70,6 +70,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         {
             name = data + i + 1;
         }
+
         j = i;
         while (data[j] != 0)
         {
@@ -80,14 +81,14 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                 return;
         }
 
-        type = data + j + 2;
+        type = data + j;
         class = type + 2;
         time_tl = class + 2;
         answer_len = time_tl + 4;
         answer = answer_len + 2;
 
         k--;
-        i = j + 8;
+        i = j + 10 + answer_len;
         fprintf(output, "|%s|%u|%u|%.*s|",
                 name, (uint16_t)*type, (uint16_t) * class, (uint16_t)*answer_len, answer);
     }

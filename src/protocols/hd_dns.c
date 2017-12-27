@@ -28,7 +28,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     FILE *output = httpdump_file(rte_lcore_id());
 
     __print_ts(output, ts);
-    fprintf(output, "|DNS|");
+    fprintf(output, "|DNS");
 
     // Queries
     uint32_t i = DNS_HEADER_LEN, j = 0, k = questions;
@@ -69,13 +69,15 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         else
         {
             name = data + i + 1;
-            j = i;
-            while (data[j] != 0)
-            {
-                if (data[j] < 32 || data[j] > 126)
-                    data[j] = '.';
-                j++;
-            }
+        }
+        j = i;
+        while (data[j] != 0)
+        {
+            if (data[j] < 32 || data[j] > 126)
+                data[j] = '.';
+            j++;
+            if (j > len)
+                return;
         }
 
         type = data + j + 2;
@@ -86,7 +88,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
         k--;
         i = j + 8;
-        fprintf(output, "|%s|%d|%d|%.*s|",
+        fprintf(output, "|%s|%u|%u|%.*s|",
                 name, (uint16_t)*type, (uint16_t) * class, (uint16_t)*answer_len, answer);
     }
 

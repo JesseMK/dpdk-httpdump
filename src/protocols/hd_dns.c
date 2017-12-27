@@ -103,8 +103,9 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         q--;
         i = (j > i) ? j + 4 : i + 8;
 
+        // TODO: Big end
         fprintf(output, "|name:%s|type:%u|class:%u",
-                name, *(uint8_t *)type, *(uint8_t *)class);
+                name, *(uint8_t *)(type + 1), *(uint8_t *)(class + 1));
     }
 
     // Answers
@@ -169,8 +170,9 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             q--;
             i = answer + *(uint16_t *)(answer_len + 1);
 
+            // TODO: Big end
             fprintf(output, "|name:%s|type:%u|class:%u|len:%u|answer:%*s",
-                    name, *(uint8_t *)type, *(uint8_t *)class,
+                    name, *(uint8_t *)(type + 1), *(uint8_t *)(class + 1),
                     *(uint8_t *)(answer_len + 1), *(uint8_t *)(answer_len + 1), answer);
         }
     }

@@ -90,7 +90,11 @@ void httpdump_pcap(const struct pcap_pkthdr *pkthdr, const unsigned char *bytes)
         // UDP Header
         src.port = be16toh(*((uint16_t *)(bytes + i)));
         dst.port = be16toh(*((uint16_t *)(bytes + i + 2)));
+        i += 8;
+
+        if (i >= pkthdr->len)
+            return;
         if (src.port == 53 || src.port == 53)
-            httpdump_dns((unsigned char *)(bytes + i + 8), pkthdr->len - i, pkthdr->ts, &src, &dst);
+            httpdump_dns((unsigned char *)(bytes + i), pkthdr->len - i, pkthdr->ts, &src, &dst);
     }
 }

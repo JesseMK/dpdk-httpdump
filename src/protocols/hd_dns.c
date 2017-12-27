@@ -27,7 +27,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
     uint32_t pos = DNS_HEADER_LEN;
 
-    if (data[pos] == 0)
+    if (data[pos] < 1 || data[pos] > 10)
         return;
 
     while (data[pos] != 0)

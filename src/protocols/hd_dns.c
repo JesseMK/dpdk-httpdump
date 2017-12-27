@@ -47,7 +47,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     // fprintf(output, "\n");
 
     __print_ts(output, ts);
-    fprintf(output, "|DNS|Queries:%u", questions);
+    fprintf(output, "|DNS|%u", questions);
 
     // Queries
     uint32_t i = DNS_HEADER_LEN, j = 0, k = 0, q = questions, field_len = 0;
@@ -94,7 +94,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         i = (j > i) ? j + 4 : i + 8;
 
         // TODO: Big end
-        fprintf(output, "|name:%s|type:%u|class:%u",
+        fprintf(output, "|%s|%u|%u",
                 name, *(uint8_t *)(type + 1), *(uint8_t *)(class + 1));
     }
 
@@ -151,7 +151,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             i = ((j > i) ? j : i + 2) + 10;
 
             // TODO: Big end
-            fprintf(output, "|name:%s|type:%u|class:%u|len:%u",
+            fprintf(output, "|%s|%u|%u|%u",
                     name, *(uint8_t *)(type + 1), *(uint8_t *)(class + 1),
                     *(uint8_t *)(answer_len + 1));
 
@@ -160,7 +160,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             {
                 struct in_addr addr;
                 addr.s_addr = htobe32(answer);
-                fprintf(output, "|answer:%s", inet_ntoa(addr));
+                fprintf(output, "|%s", inet_ntoa(addr));
             }
             else
             {
@@ -168,7 +168,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                 if (((data[i] & 0xf0) >> 4) == 0xc)
                 {
                     j = (uint16_t)(data[i + 1] & 0xf);
-                    fprintf(output, "|flag:%02x|pos:%u|offset:%u", (data[i] & 0xf0) >> 4, i, j);
+                    // fprintf(output, "|flag:%02x|pos:%u|offset:%u", (data[i] & 0xf0) >> 4, i, j);
                 }
                 else
                     j = i;
@@ -186,7 +186,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                     }
                 }
 
-                fprintf(output, "|answer:%.*s",
+                fprintf(output, "|%.*s",
                         *(uint8_t *)(answer_len + 1), answer);
             }
 

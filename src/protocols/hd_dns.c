@@ -100,8 +100,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     {
         // Answers
         // TODO: Parse offset
-        q = (((*(uint16_t *)(data + 6) & 0xFF00) >> 8) |
-             ((*(uint16_t *)(data + 7) & 0x00FF) << 8));
+        q = *(uint16_t *)(data + 7);
 
         fprintf(output, "|RSP:%u", q);
 

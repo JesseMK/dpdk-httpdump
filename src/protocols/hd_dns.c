@@ -70,27 +70,29 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             fprintf(output, "|ERROR1@%u:%02x\n", j, data[j]);
             return;
         }
-
-        while (data[j] != 0 && j < len)
+        if (i = j)
         {
-            field_len = data[j];
-            data[j] = '.';
-            k = j + 1;
-            while (k < j + field_len)
+            while (data[j] != 0 && j < len)
             {
-                if (data[k] < 32 || data[k] > 126)
+                field_len = data[j];
+                data[j] = '.';
+                k = j + 1;
+                while (k < j + field_len)
                 {
-                    fprintf(output, "|ERROR2@%u:%02x\n", k, data[k]);
+                    if (data[k] < 32 || data[k] > 126)
+                    {
+                        fprintf(output, "|ERROR2@%u:%02x\n", k, data[k]);
+                        return;
+                    }
+                    k++;
+                }
+
+                j = k + 1;
+                if (j > len || data[j] > 10 || len - j < 5)
+                {
+                    fprintf(output, "|ERROR3@%u:%02x\n", j, data[j]);
                     return;
                 }
-                k++;
-            }
-
-            j = k + 1;
-            if (j > len || data[j] > 10 || len - j < 5)
-            {
-                fprintf(output, "|ERROR3@%u:%02x\n", j, data[j]);
-                return;
             }
         }
 
@@ -130,26 +132,29 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                 return;
             }
 
-            while (data[j] != 0 && j < len)
+            if (i = j)
             {
-                field_len = data[j];
-                data[j] = '.';
-                k = j + 1;
-                while (k < j + field_len)
+                while (data[j] != 0 && j < len)
                 {
-                    if (data[k] < 32 || data[k] > 126)
+                    field_len = data[j];
+                    data[j] = '.';
+                    k = j + 1;
+                    while (k < j + field_len)
                     {
-                        fprintf(output, "|ERROR2@%u:%02x\n", k, data[k]);
+                        if (data[k] < 32 || data[k] > 126)
+                        {
+                            fprintf(output, "|ERROR2@%u:%02x\n", k, data[k]);
+                            return;
+                        }
+                        k++;
+                    }
+
+                    j = k + 1;
+                    if (j > len || data[j] > 10 || len - j < 5)
+                    {
+                        fprintf(output, "|ERROR3@%u:%02x\n", j, data[j]);
                         return;
                     }
-                    k++;
-                }
-
-                j = k + 1;
-                if (j > len || data[j] > 10 || len - j < 5)
-                {
-                    fprintf(output, "|ERROR3@%u:%02x\n", j, data[j]);
-                    return;
                 }
             }
 

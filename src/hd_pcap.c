@@ -73,7 +73,7 @@ void httpdump_pcap(const struct pcap_pkthdr *pkthdr, const unsigned char *bytes)
     if (i > pkthdr->len - 20)
         return;
 
-    if (udp_flag == 1)
+    if (udp_flag == 0)
     {
         // TCP Header
         // src.port = be16toh(*((uint16_t *)(bytes + i)));

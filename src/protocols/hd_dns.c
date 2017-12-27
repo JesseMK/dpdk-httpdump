@@ -70,6 +70,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                 }
                 k++;
             }
+
             j = k + 1;
             if (j > len || data[j] > 10 || len - j < 5)
                 return;

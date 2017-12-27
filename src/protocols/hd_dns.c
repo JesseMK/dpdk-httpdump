@@ -57,11 +57,14 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         // NAME
         j = i;
         if (data[j] < 1 || data[j] > 10)
+        {
+            fprintf(output, "|ERROR\n");
             return;
+        }
         while (data[j] != 0)
         {
             k = j;
-            while (k < j + data[j] + 1)
+            while (k < j + data[j])
             {
                 if (data[j] < 32 || data[j] > 126)
                 {

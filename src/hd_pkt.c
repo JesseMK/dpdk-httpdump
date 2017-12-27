@@ -119,8 +119,6 @@ void httpdump_pkt(unsigned char *data, uint32_t seq, uint16_t len, struct timeva
         }
         else
         {
-
-            // TODO: DNS Identify
             if (src->port == 53 || dst->port == 53)
             {
                 httpdump_dns(data, len, ts, src, dst);

@@ -185,13 +185,6 @@ void httpdump_http(unsigned char *data, uint32_t len, struct timeval ts, host_t 
         if (!type)
             return;
     }
-    // else
-    // {
-    //     // TODO: DNS Identify
-    //     if (src->port == 53 || dst->port == 53)
-    //         httpdump_dns(data, len, ts, src, dst);
-    //     return;
-    // }
 
     // FILE *output = httpdump_file(rte_lcore_id());
 

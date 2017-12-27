@@ -33,7 +33,7 @@ inline void __print_ip(FILE *output, host_t *host)
     {
         struct in_addr addr;
         addr.s_addr = htobe32(host->ip4);
-        // fprintf(output, "%s", inet_ntoa(addr));
+        fprintf(output, "%s", inet_ntoa(addr));
     }
     else if (host->ipver == 6)
     {

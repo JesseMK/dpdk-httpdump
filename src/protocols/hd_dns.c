@@ -61,7 +61,8 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             fprintf(output, "|ERROR@%u\n", j);
             return;
         }
-        while (data[j] != 0)
+
+        while (data[j] != 0 && j < len)
         {
             field_len = data[j];
             data[j] = '.';
@@ -78,10 +79,10 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
             j = k + 1;
             if (j > len || data[j] > 10 || len - j < 5)
-                {
-                    fprintf(output, "|ERROR@%u\n", j);
-                    return;
-                }
+            {
+                fprintf(output, "|ERROR@%u\n", j);
+                return;
+            }
         }
 
         name = data + i + 1;
@@ -97,43 +98,55 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
 
     // Answers
     // TODO: Parse offset
-    // k = questions;
+    q = *(uint16_t *)(data + 7), field_len = 0;
 
-    // while (i < len && k > 0)
-    // {
-    //     name = data + i;
-    //     if ((*name >> 4 == 12))
-    //     {
-    //         name = data + *(uint16_t *)(name + 1);
-    //         j = i + 2;
-    //     }
-    //     else
-    //     {
-    //         name = data + i + 1;
+    while (i < len && q > 0)
+    {
+        // NAME
+        j = i;
+        if (data[j] < 1 || data[j] > 10)
+        {
+            fprintf(output, "|ERROR@%u\n", j);
+            return;
+        }
 
-    //         j = i;
-    //         while (data[j] != 0)
-    //         {
-    //             if (data[j] < 32 || data[j] > 126)
-    //                 data[j] = '.';
-    //             j++;
-    //             if (j > len)
-    //                 return;
-    //         }
-    //         j++;
-    //     }
+        while (data[j] != 0 && j < len)
+        {
+            field_len = data[j];
+            data[j] = '.';
+            k = j + 1;
+            while (k < j + field_len)
+            {
+                if (data[k] < 32 || data[k] > 126)
+                {
+                    fprintf(output, "|ERROR@%u\n", k);
+                    return;
+                }
+                k++;
+            }
 
-    //     type = data + j;
-    //     class = type + 2;
-    //     time_tl = class + 2;
-    //     answer_len = time_tl + 4;
-    //     answer = answer_len + 2;
+            j = k + 1;
+            if (j > len || data[j] > 10 || len - j < 5)
+            {
+                fprintf(output, "|ERROR@%u\n", j);
+                return;
+            }
+        }
 
-    //     k--;
-    //     i = j + 10 + answer_len;
-    //     fprintf(output, "|%s|%u|%u|%.*s|",
-    //             name, *(uint16_t *)type, *(uint16_t *) class, *(uint16_t *)answer_len, answer);
-    // }
+        name = data + i + 1;
+        type = data + j;
+        class = type + 2;
+        time_tl = class + 2;
+        answer_len = time_tl + 4;
+        answer = answer_len + 2;
+
+        q--;
+        i = j + 4;
+
+        fprintf(output, "|name:%s|type:%u|class:%u|answer:%*s||",
+                name, *(uint16_t *)type, *(uint16_t *)class,
+                *(uint16_t *)(answer_len + 1), answer);
+    }
 
     __print_ip(output, src);
     fprintf(output, "|%u|", src->port);

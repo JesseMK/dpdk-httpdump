@@ -96,7 +96,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                 name, *(uint16_t *)type, *(uint16_t *)class);
     }
 
-    if (data[3] > 0x80)
+    if (data[2] > 0x7f)
     {
         // Answers
         // TODO: Parse offset

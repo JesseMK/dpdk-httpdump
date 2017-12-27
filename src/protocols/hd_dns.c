@@ -112,7 +112,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
             else
                 j = i;
 
-            fprintf(output, "|flag:%02x|pos:%u|offset:%u",(data[i] & 0xf0) >> 4), i,j);
+            fprintf(output, "|flag:%02x|pos:%u|offset:%u", (data[i] & 0xf0) >> 4, i, j);
 
             name = data + j + 1;
 

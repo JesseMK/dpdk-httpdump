@@ -92,7 +92,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         q--;
         i = j + 4;
 
-        fprintf(output, "|name:%s|type:%u|class:%u|",
+        fprintf(output, "|name:%s|type:%u|class:%u",
                 name, *(uint16_t *)type, *(uint16_t *)class);
     }
 
@@ -102,7 +102,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         // TODO: Parse offset
         q = *(uint16_t *)(data + 7);
 
-        fprintf(output, "RSP:%u", j, q);
+        fprintf(output, "|RSP:%u", j, q);
 
         while (i < len && q > 0)
         {
@@ -157,6 +157,7 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
                     *(uint16_t *)(answer_len + 1), answer);
         }
     }
+    fprintf(output, "|");
     __print_ip(output, src);
     fprintf(output, "|%u|", src->port);
     __print_ip(output, dst);

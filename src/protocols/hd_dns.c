@@ -51,8 +51,8 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
         k--;
         i = j + 4;
 
-        fprintf(output, "|%s|%s|%s|",
-                name, type, class);
+        fprintf(output, "|name:%s|type:%u|class:%u|",
+                name, (uint16_t)*type, (uint16_t) * class);
     }
 
     // Answers

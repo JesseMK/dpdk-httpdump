@@ -22,20 +22,20 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     unsigned char *answer = NULL;
     unsigned char *answer_len = NULL;
 
-    if (len < DNS_MINLEN)
+    if (len < DNS_MINLEN || questions < 1)
         return;
 
-    // uint32_t pos = DNS_HEADER_LEN;
+    uint32_t pos = DNS_HEADER_LEN;
 
-    // if (data[pos] < 1 || data[pos] > 10)
-    //     return;
+    if (data[pos] < 1 || data[pos] > 10)
+        return;
 
-    // while (data[pos] != 0)
-    // {
-    //     pos += data[pos] + 1;
-    //     if (pos > len || data[pos] < 0 || data[pos] > 10 || len - pos < 5)
-    //         return;
-    // }
+    while (data[pos] != 0)
+    {
+        pos += data[pos] + 1;
+        if (pos > len || data[pos] < 0 || data[pos] > 10 || len - pos < 5)
+            return;
+    }
 
     FILE *output = httpdump_file(rte_lcore_id());
 
@@ -46,28 +46,40 @@ void httpdump_dns(unsigned char *data, uint32_t len, struct timeval ts, host_t *
     }
     fprintf(output, "\n");
 
-    // Queries
-    uint32_t i = DNS_HEADER_LEN, j = 0, k = questions;
-
     __print_ts(output, ts);
-    fprintf(output, "|DNS|Queries:%u", k);
+    fprintf(output, "|DNS|Queries:%u", questions);
 
-    while (i < len && k > 0)
+    // Queries
+    uint32_t i = DNS_HEADER_LEN, j = 0, k = 0, q = questions;
+
+    while (i < len && q > 0)
     {
+        // NAME
         j = i;
+        if (data[j] < 1 || data[j] > 10)
+            return;
         while (data[j] != 0)
         {
-            if (data[j] < 32 || data[j] > 126)
-                data[j] = '.';
-            j++;
+            k = j;
+            while (k < j + data[j] + 1)
+            {
+                if (data[j] < 32 || data[j] > 126)
+                {
+                    fprintf(output, "|ERROR\n");
+                    return;
+                }
+                k++;
+            }
+            j = k + 1;
+            if (j > len || data[j] > 10 || len - j < 5)
+                return;
         }
-        j++;
 
         name = data + i;
         type = data + j;
         class = type + 2;
 
-        k--;
+        q--;
         i = j + 4;
 
         fprintf(output, "|name:%s|type:%u|class:%u|",
